@@ -1,0 +1,22 @@
+<div class="add-product">
+    <h2 class="modal-title">Add New Product</h2>
+
+    <form [formGroup]="productsForm" class="common-form">
+        <input type="text" matInput placeholder="Enter product name" class="form-control" formControlName="productName">
+        <img [src]="image" class="product_image" *ngIf="image"/>
+        <input id="imageNameId" type="file" #Image accept="image/*" formControlName="productImage"
+        (change)="changeListener($event)" />
+        <div class="form-check">
+            <div>
+                <input type="checkbox" (click)="yourFunction()"><span class="ml-10">Add seperate URL</span>
+                <input type="text" class="form-control mt5" *ngIf="isChecked" placeholder="Enter web URL"
+                    formControlName="productQr" />
+            </div>
+
+        </div>
+        <button type="submit" class="btn add_product_button mb-20" [disabled]="productsForm.invalid"
+            (click)="submit(productsForm.value)">Add Product</button>
+
+        <button class="btn btn-submit" (click)="cancel()">Cancel</button>
+    </form>
+</div>

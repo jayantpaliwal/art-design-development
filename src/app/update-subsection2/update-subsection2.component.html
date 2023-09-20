@@ -1,0 +1,66 @@
+<div class="add-product">
+    <h2 class="modal-title">Edit Product: {{products.productName}}</h2>
+    <form [formGroup]="productsEditForm">
+        <div class="row alignv_center mb-15">
+            <div class="col-6">
+                <label>Product Name</label>
+                <input type="text" matInput placeholder="Product Name" class="form-control"
+                    formControlName="productName" />
+            </div>
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Image</label>
+                <img [src]="image" style="width:250px;height:200px" *ngIf="image" />
+                <input id="imageNameId" type="file" #Image accept="image/*" formControlName="productImage"
+                    (change)="changeListener($event)" />
+            </div>
+        </div>
+        <div class="row alignv_center mb-15">
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Code</label>
+                <input type="text" matInput placeholder="Product Code" class="form-control"
+                    formControlName="productCode" />
+            </div>
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Height</label>
+                <input type="number" matInput placeholder="Product Height" class="form-control"
+                    formControlName="productHeight" />
+            </div>
+        </div>
+        <div class="row alignv_center mb-15">
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Width</label>
+                <input type="number" matInput placeholder="Product Width" class="form-control"
+                    formControlName="productWidth" />
+            </div>
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Depth</label>
+                <input type="number" matInput placeholder="Product Depth" class="form-control"
+                    formControlName="productDepth" />
+            </div>
+        </div>
+        <div class="row alignv_center mb-15">
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Price</label>
+                <input type="number" matInput placeholder="Product Price" class="form-control"
+                    formControlName="productPrice" />
+            </div>
+            <div class="col-6" *ngIf="!isChecked">
+                <label>Product Quantity</label>
+                <input type="number" matInput placeholder="Product Quantity" class="form-control"
+                    formControlName="productQuantity" />
+            </div>
+        </div>
+
+        <div class="row alignv_center mb-15" *ngIf="!isChecked">
+            <div class="col-12">
+                <input type="text" matInput placeholder="Product Description" class="form-control"
+                    formControlName="productDescription" />
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn add_product_button mr-15" [disabled]="productsEditForm.invalid"
+                (click)="submitData(productsEditForm.value)">Update</button>
+            <button class="btn btn-submit" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+.form-control {
+    /* margin-right: 15px; */
+    margin-bottom: 15px;
+}
+.mat-mdc-dialog-container .mdc-dialog__container {    
+    width: 650px !important;
+}
+.mat-mdc-dialog-container .mdc-dialog__surface{
+    width: 650px !important;
+}
+.mb-25{
+    margin-bottom: 25px;
+}

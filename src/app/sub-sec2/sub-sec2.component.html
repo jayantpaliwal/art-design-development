@@ -1,0 +1,92 @@
+
+<div class="container mt-30">
+    <div class="row gx-1 mb-30 d-flex align-items-end">
+        <div class="col-4 d-flex">
+            <button (click)="backClicked()" class="back_button">&#8592;</button>
+            <h4 class="table_title">{{productName}}</h4>
+            <!-- <nav>
+                <a routerLink="/all-product" routerLinkActive="active">&#8592; Home</a>
+                <button (click)="backClicked()" class="back_button">&#8592; Back</button>
+            </nav> -->
+
+        </div>
+        <div class="col-8 right_section">
+            <div class="search_section mr-15">
+                <!-- <input class="form-control mr-15" type="search" placeholder="Search for products" aria-label="Search">
+                <button class="btn search_button">Search</button> -->
+                <input class="form-control mr-15" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for products" >
+            </div>
+            <button class="btn add_product_button mr-15" (click)="addProduct()"> Add New Product</button>
+            <a><button class="btn print_button" (click)="printTable()">Print</button></a>
+        </div>
+    </div>
+
+    <table id="myTable" class="products_Table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Size(h*w*d)</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th class="no-print">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products | filter:searchText | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index">
+                <td style="width:12%" (mouseenter)="onHover(i)"
+                (mouseleave)="onHover(-1)" class="product-box hover-circle text-center">
+                    <p >
+                        <img [src]="product?.productImage || 'assets/images/no-preview.png' " class="s1">
+                    </p>
+                    <div *ngIf="i == hoverIndex" class="hoverly-item">
+
+                        <app-hover-detail [data]="product"></app-hover-detail>
+                 
+                    </div>
+                </td>
+                <!-- <td class="product-box hover-circle text-center">
+                    
+                        <img src="https://sd.sunnydiamonds.com/blog/wp-content/uploads/2021/03/SG07390R_M_Couple-Ring_2-0.jpg" alt="product image" class="product_image" >
+                        <div class="hoverly-item">
+                            <app-hover-detail></app-hover-detail>
+                        </div>
+                                      
+                </td> -->
+                <td>{{product.productName}}</td>
+                <td>{{product.productCode}}</td>
+                <td *ngIf="product.productHeight&&product.productWidth&&product.productDepth">{{product.productHeight}}*{{product.productWidth}}*{{product.productDepth}}</td>
+                <td *ngIf="!product.productHeight&&!product.productWidth&&!product.productDepth"></td>
+                <td>{{product.productPrice}}</td>
+                <td>{{product.productQuantity}}</td>
+                <td>{{product.productDescription}}</td>
+                <td class="no-print">
+                    <button class="btn edit_icon edit" (click)="edit(product)"> <fa-icon 
+                            [icon]="icon1"></fa-icon></button>
+                    <button class="btn delete-icon delete" (click)="delete(product.subCategoryId2)"><fa-icon class="" [icon]="icon"></fa-icon></button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <!-- <a routerLink="/all-product"><button class="b1"> <b>Back</b></button></a> -->
+
+</div>
+<nav aria-label="Page navigation example" class="mt-20 text-center">
+    <div class="d-flex justify-content-center">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)"
+        >
+        </pagination-controls>
+      </div>
+</nav>

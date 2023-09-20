@@ -1,0 +1,28 @@
+h1{
+    color:blueviolet;
+    text-align:center;
+}
+.add-product{
+    text-align: left;
+}
+.b1{
+    float: right;
+    color: blueviolet;
+    height:45px;
+    width:250px;
+    font-size: larger;
+    margin-bottom: 10px;
+    }
+    .form-check{
+        padding: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        margin-top: 0;
+        color: #495057;
+        text-align: left;
+    }
+
+    .form-control {
+        /* margin-right: 15px; */
+        margin-bottom: 15px;
+    }

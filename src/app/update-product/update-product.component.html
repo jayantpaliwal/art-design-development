@@ -1,0 +1,37 @@
+<!-- <div class="add-product">
+    <h2>Edit Product: {{productName}}</h2>
+
+    <input class="form-control" type="text" placeholder="Enter product name" name="productName" ngModel />
+    <input class="form-control" type="text" placeholder="Enter product price" name="productImage" ngModel />
+    <label for="customFile">Select Image</label>
+    <input type="file" class="form-control" />
+
+    <button class="btn btn-submit" (click)="updateFunc()">Done</button>
+</div> -->
+
+<div class="add-product">
+    <div class="card-body">
+        <h2 class="modal-title">Edit Product: {{productName}}</h2>
+        <form [formGroup]="productsEditForm">
+            <div class="row alignv_center mb-25">
+                <div class="col-12">
+                    <label>Product Name</label>
+                    <input type="text" matInput placeholder="Product Name" class="form-control"
+                        formControlName="productName" />
+                </div>
+            </div>
+            <div class="form-group mb-25">
+                <img [src]="image" style="width:250px;height:200px" *ngIf="image" />
+                <input id="imageNameId" type="file" #Image accept="image/*" formControlName="productImage"
+                    (change)="changeListener($event)" />            </div>
+
+            <button type="submit" class="btn add_product_button mr-20" [disabled]="productsEditForm.invalid"
+            (click)="submitData(productsEditForm.value)">Update</button>
+            <button class="btn btn-submit" (click)="onCancel()">Cancel</button>
+            
+
+
+        </form>
+
+    </div>
+</div>

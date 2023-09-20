@@ -1,0 +1,99 @@
+<div class="all-product container mt-30">
+  <!-- <div class="row mb-30">
+    <div class="col-6 ">      
+    </div>
+    <div class="col-6 text-right">
+    </div>
+  </div> -->
+
+  <div class="row gx-5 mb-30 d-flex align-items-end">
+    <div class="col-4">
+      <h4 class="table_title">All Product List</h4>
+    </div>
+    <div class="col-8 right_section">
+      <div class="search_section mr-15">
+        <!-- <input class="form-control mr-15" type="search" placeholder="Search for products" aria-label="Search"> -->
+        <input class="form-control mr-15" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+          placeholder="Search for products">
+        <!-- <button class="btn search_button">Search</button> -->
+      </div>
+      <button class="btn add_product_button mr-15" (click)="goToAddNewProduct()"> Add Product</button>
+      <!-- <button class="btn print_button" (click)="printTable('printTable')">Print</button> -->
+      <!-- <button class="btn print_button" styleSheetFile="assets/css/design.css" [useExistingCss]="true" printSectionId="printTable" ngxPrint >Print</button> -->
+      <button class="btn print_button" (click)="printTable()">
+        Print
+      </button>
+
+    </div>
+  </div>
+
+  <table class="products_Table" id="myTable">
+    <thead>
+      <tr>
+        <th width="20%">QR code</th>
+        <th width="20%">Image</th>
+        <th width="20%">Name</th>
+        <th class="no-print">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products | filter:searchText | paginate
+    : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+let i = index">
+        <td> 
+          <div *ngIf="product.productQr">
+            <ngx-qrcode [value]="product.productQr">
+            </ngx-qrcode>
+            <!-- [template]="'luxury'" -->
+            <!-- [value]="product.productQr"  -->
+            <!-- <ngx-qrcode-styling [config]="config"></ngx-qrcode-styling> -->
+          </div>
+        </td>
+        <td (click)="goToSubSec(product)" style=" cursor: pointer;">
+          <div *ngIf="product.productImage">
+            <img [src]="product?.productImage" class="s1" class="product_image">
+          </div>
+        </td>
+
+        <td >{{product.productName}}</td>
+        <td class="no-print">
+          <button type="button" class="btn edit_icon edit" (click)="edit(product)"><fa-icon
+              [icon]="faEdit"></fa-icon></button>
+          <button type="button" class="btn delete-icon delete" (click)="delete(product.productId)"><fa-icon
+              [icon]="faTrash"></fa-icon></button>
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <nav aria-label="Page navigation example" class="mt-20 text-center">
+    <!-- <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul> -->
+    <div class="d-flex justify-content-center">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>
+  </nav>
+
+</div>
