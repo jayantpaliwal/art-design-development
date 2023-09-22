@@ -5,3 +5,11 @@
 h2{
     margin-bottom: 30px;
 }
+.form-check{
+    padding: 0;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-top: 0;
+    color: #495057;
+    text-align: left;
+}

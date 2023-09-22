@@ -8,16 +8,16 @@
 
   <div class="row gx-5 mb-30 d-flex align-items-end">
     <div class="col-4">
-      <h4 class="table_title">All Product List</h4>
+      <h4 class="table_title">All Category List</h4>
     </div>
     <div class="col-8 right_section">
       <div class="search_section mr-15">
         <!-- <input class="form-control mr-15" type="search" placeholder="Search for products" aria-label="Search"> -->
         <input class="form-control mr-15" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-          placeholder="Search for products">
+          placeholder="Search for Categories">
         <!-- <button class="btn search_button">Search</button> -->
       </div>
-      <button class="btn add_product_button mr-15" (click)="goToAddNewProduct()"> Add Product</button>
+      <button class="btn add_product_button mr-15" (click)="goToAddNewProduct()">Add Category</button>
       <!-- <button class="btn print_button" (click)="printTable('printTable')">Print</button> -->
       <!-- <button class="btn print_button" styleSheetFile="assets/css/design.css" [useExistingCss]="true" printSectionId="printTable" ngxPrint >Print</button> -->
       <button class="btn print_button" (click)="printTable()">
@@ -37,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products | filter:searchText | paginate
+      <tr *ngFor="let product of products | customFilter:searchText | paginate
     : {
         itemsPerPage: tableSize,
         currentPage: page,

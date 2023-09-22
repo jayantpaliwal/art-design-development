@@ -35,24 +35,20 @@ export class HoverDetailComponent implements OnInit {
   }
 
   print(): void {
-    let printContents, popupWin: any;
-    printContents = document.getElementById('print-section')?.innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Print Product Details</title>
-          <style>
-          </style>
-        </head>
-    <body onload="window.print();window.close()" style="font-size:30px">${printContents}</body>
-      </html>`
-
-    );
-    popupWin.document.close();
+    var table: any = document.getElementById('print-section');
+    // const clonedTable: any = table.cloneNode(true);
+    // const actionCells = clonedTable.getElementsByClassName('no-print');
+    // while (actionCells.length > 0) {
+    //   actionCells[0].remove();
+    // }
+    var newWin: any = window.open('', 'Print-Window');
+    newWin.document.open();
+    // <style>table { border-collapse: collapse; width: 100%; } table, th, td { border: 1px solid black; } img { max-width: 100%; height: auto; }</style>
+    newWin.document.write('<html><head><style>img { max-width: 100%; height: 200px; object-fit:contain ; display: block; margin-left: auto;  margin-right: auto;  } h4{ font-size: 15px}</style></head><body onload="window.print()">' + table.outerHTML + '</body></html>');
+    newWin.document.close();
+    setTimeout(function () {
+      newWin.close();
+    }, 10);
   }
-
-
 
 }

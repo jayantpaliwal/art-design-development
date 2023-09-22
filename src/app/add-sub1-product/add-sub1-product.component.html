@@ -1,10 +1,14 @@
 <div class="add-product">
-    <h2 class="modal-title">Add New Product</h2>
+    <h2 class="modal-title" *ngIf="!isChecked">Add New Product</h2>
+    <h2 class="modal-title" *ngIf="isChecked">Add New Sub Category</h2>
     <!-- <p class="message-p">{{addProductMessage}}</p> -->
 
 
     <form [formGroup]="productForm">
-
+        <div class="sub_section">
+            <input type="checkbox" name="check" value="false" (change)="check($event)">
+            <span class="ml-10">Add As Sub Section</span>
+        </div>
         <br />
         <div class="form-group" >
             <!-- <label class="col-md-3 control-label" >Product Image</label> -->
@@ -14,9 +18,14 @@
         </div>
 
         <div class="row alignv_center">
-            <div class="col-6">
-                <label>Product Name</label>
+            <div class="col-6" *ngIf="!isChecked">
+                <label >Product Name</label>
                 <input type="text" matInput placeholder="Product Name" class="form-control"
+                    formControlName="productName">
+            </div>
+            <div class="col-6" *ngIf="isChecked">
+                <label >Category Name</label>
+                <input type="text" matInput placeholder="Category Name" class="form-control"
                     formControlName="productName">
             </div>
             <div class="col-6" *ngIf="!isChecked">
@@ -27,11 +36,11 @@
         <div class="row alignv_center">
             <div class="col-6" *ngIf="!isChecked">
                 <label>Height</label>
-                <input type="text" matInput placeholder="Height" class="form-control" formControlName="productHeight">
+                <input type="number" matInput placeholder="Height" class="form-control" formControlName="productHeight">
             </div>
             <div class="col-6" *ngIf="!isChecked">
                 <label>Product Quantity</label>
-                <input type="text" matInput placeholder="Product Quantity" class="form-control"
+                <input type="number" matInput placeholder="Product Quantity" class="form-control"
                     formControlName="productQuantity">
             </div>
         </div>
@@ -39,11 +48,11 @@
         <div class="row alignv_center">
             <div class="col-6" *ngIf="!isChecked">
                 <label>Width</label>
-                <input type="text" matInput placeholder="Width" class="form-control" formControlName="productWidth">
+                <input type="number" matInput placeholder="Width" class="form-control" formControlName="productWidth">
             </div>
             <div class="col-6" *ngIf="!isChecked">
                 <label>Product Price</label>
-                <input type="text" matInput placeholder="Product Price" class="form-control"
+                <input type="number" matInput placeholder="Product Price" class="form-control"
                     formControlName="productPrice">
             </div>
         </div>        
@@ -51,26 +60,24 @@
 
             <div class="col-6" *ngIf="!isChecked">
                 <label>Depth</label>
-                <input type="text" matInput placeholder="Depth" class="form-control" formControlName="productDepth">
+                <input type="number" matInput placeholder="Depth" class="form-control" formControlName="productDepth">
                 
             </div>
             <div class="col-6" *ngIf="!isChecked">
                 <label>Product Description</label>
-                <input type="text" matInput placeholder="Description" class="form-control"
-                    formControlName="productDescription">
+                <textarea type="text" matInput placeholder="Description" class="form-control"
+                    formControlName="productDescription"></textarea>
             </div>
         </div>        
 
-        <div class="mb-25">
-            <input type="checkbox" name="check" value="false" (change)="check($event)">
-            <span class="ml-10">Add Sub Section</span>
-        </div>
-
         <div class="alignv_center">            
         <button type="submit" class="btn add_product_button mr-20" [disabled]="productForm.invalid"
-        (click)="addProduct(productForm.value)">Add Product</button>
+        (click)="addProduct(productForm.value)" *ngIf="!isChecked">Add Product</button>
 
-    <button class="btn btn-submit" (click)="onCancel()">Cancel</button>
-        </div>
+        <button type="submit" class="btn add_product_button mr-20" [disabled]="productForm.invalid"
+        (click)="addProduct(productForm.value)" *ngIf="isChecked">Add Sub Category</button>
+
+       <button class="btn btn-submit" (click)="onCancel()">Cancel</button>
+         </div>
     </form>
 </div>

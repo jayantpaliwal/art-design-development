@@ -28,7 +28,7 @@ export class AllProductComponent implements OnInit {
   searchText: any;
   page: number = 1;
   count: number = 0;
-  tableSize: number = 7;
+  tableSize: number = 10;
   tableSizes: any = [3, 6, 9, 12];
 
   public config: Options = {
@@ -84,7 +84,7 @@ export class AllProductComponent implements OnInit {
   edit(product: any) {
     const dialogRef = this.dialog.open(UpdateProductComponent,
       {
-        data: { productName: product.productName }
+        data: { productName: product.productName, productQr: product.productQr }
       }
 
     );
@@ -112,7 +112,7 @@ export class AllProductComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         this.sql.deleteFromProductsTable(productId).then((res: any) => {
           // this.sql.getCount(productId);
@@ -136,7 +136,8 @@ export class AllProductComponent implements OnInit {
     }
     var newWin: any = window.open('', 'Print-Window');
     newWin.document.open();
-    newWin.document.write('<html><head><style>table { border-collapse: collapse; } table, th, td { border: 1px solid black; }</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
+    // <style>table { border-collapse: collapse; width: 100%; } table, th, td { border: 1px solid black; } img { max-width: 100%; height: auto; }</style>
+    newWin.document.write('<html><head><style>table { border-collapse: collapse;   width: 100%; } table, th, td { border: 1px solid black;  } img { max-width: 100%; height: 150px; object-fit:contain ; display: block; margin-left: auto;  margin-right: auto; width:50%; }</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
     newWin.document.close();
     setTimeout(function () {
       newWin.close();

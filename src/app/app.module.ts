@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +30,8 @@ import { AddSub2ProductComponent } from './add-sub2-product/add-sub2-product.com
 import { UpdateSubsection2Component } from './update-subsection2/update-subsection2.component';
 import { NgxPrintModule } from 'ngx-print';
 import {MatCardModule} from '@angular/material/card';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { TrimDescriptionPipe } from './trim-description.pipe';
+import { FilterPipe } from './pipe/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HoverDetailComponent,
     UpdateSubsectionComponent,
     AddSub2ProductComponent,
-    UpdateSubsection2Component
+    UpdateSubsection2Component,
+    TrimDescriptionPipe,
+    FilterPipe
 
   ],
   imports: [
@@ -66,13 +69,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     MatCardModule,
-    NgxPrintModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    NgxPrintModule
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent]

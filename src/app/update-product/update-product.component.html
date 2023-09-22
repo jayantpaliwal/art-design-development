@@ -11,11 +11,11 @@
 
 <div class="add-product">
     <div class="card-body">
-        <h2 class="modal-title">Edit Product: {{productName}}</h2>
+        <h2 class="modal-title">Edit Category: {{productName}}</h2>
         <form [formGroup]="productsEditForm">
             <div class="row alignv_center mb-25">
                 <div class="col-12">
-                    <label>Product Name</label>
+                    <label>Category Name</label>
                     <input type="text" matInput placeholder="Product Name" class="form-control"
                         formControlName="productName" />
                 </div>
@@ -23,13 +23,22 @@
             <div class="form-group mb-25">
                 <img [src]="image" style="width:250px;height:200px" *ngIf="image" />
                 <input id="imageNameId" type="file" #Image accept="image/*" formControlName="productImage"
-                    (change)="changeListener($event)" />            </div>
+                    (change)="changeListener($event)" /></div>
+
+                    <div class="form-check"></div>
+                    <div class="form-check">
+                        <div>
+                           
+                            <input type="text" class="form-control mt5" 
+                                formControlName="productQr" />
+                        </div>
+                        </div>
+            
 
             <button type="submit" class="btn add_product_button mr-20" [disabled]="productsEditForm.invalid"
             (click)="submitData(productsEditForm.value)">Update</button>
             <button class="btn btn-submit" (click)="onCancel()">Cancel</button>
             
-
 
         </form>
 

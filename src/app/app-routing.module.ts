@@ -36,7 +36,7 @@ const routes: Routes = [
     component: Add2ProductComponent
   },
   {
-    path : 'sub-sec2/:subCategoryId/:productName',
+    path : 'sub-sec2/:subCategoryId/:subCatProductName/:productName',
     component : SubSec2Component
   },
   {

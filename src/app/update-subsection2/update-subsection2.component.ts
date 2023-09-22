@@ -2,6 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-update-subsection2',
@@ -18,7 +19,7 @@ export class UpdateSubsection2Component {
   products:any =[];
 
   constructor(private fb: FormBuilder, private router: Router, public dialogRef: MatDialogRef<UpdateSubsection2Component>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private global: GlobalService) {
     dialogRef.disableClose = true;
     this.productsEditForm = this.fb.group({
       productImage: [''],
@@ -57,9 +58,44 @@ export class UpdateSubsection2Component {
     }
 
     this.submitted = true;
-    var product = {
-      // qr: `https://qr.unlikeanythings.com/${this.productsEditForm.value.productName}`,
-      image: this.image,
+  //   this.global.compressImage(this.image).then((compressedImageData:any) => {
+  //   var product = {
+  //     // qr: `https://qr.unlikeanythings.com/${this.productsEditForm.value.productName}`,
+      // image: compressedImageData,
+      // name: this.productsEditForm.value.productName,
+      // code: this.productsEditForm.value.productCode,
+      // height: this.productsEditForm.value.productHeight,
+      // width: this.productsEditForm.value.productWidth,
+      // depth: this.productsEditForm.value.productDepth,
+      // price: this.productsEditForm.value.productPrice,
+      // quantity: this.productsEditForm.value.productQuantity,
+      // description: this.productsEditForm.value.productDescription
+  //   }
+  //   // this.sql.set(product);
+  //   this.dialogRef.close({ 'product': product });
+  // })
+  if (this.image instanceof Blob) {
+    this.global.compressImage(this.image).then((compressedImageData: any) => {
+      var product:any = {
+        image: compressedImageData,
+        name: this.productsEditForm.value.productName,
+        code: this.productsEditForm.value.productCode,
+        height: this.productsEditForm.value.productHeight,
+        width: this.productsEditForm.value.productWidth,
+        depth: this.productsEditForm.value.productDepth,
+        price: this.productsEditForm.value.productPrice,
+        quantity: this.productsEditForm.value.productQuantity,
+        description: this.productsEditForm.value.productDescription
+      }
+      console.log(product);
+      
+      // this.sql.set(product);
+      this.dialogRef.close({ 'product': product });
+    });
+  } else {
+    // No new image selected, use the last image
+    var product:any = {
+      image: this.image, // Use the last image here
       name: this.productsEditForm.value.productName,
       code: this.productsEditForm.value.productCode,
       height: this.productsEditForm.value.productHeight,
@@ -69,9 +105,11 @@ export class UpdateSubsection2Component {
       quantity: this.productsEditForm.value.productQuantity,
       description: this.productsEditForm.value.productDescription
     }
+    console.log(product);
+    
     // this.sql.set(product);
     this.dialogRef.close({ 'product': product });
-
+  }
   }
 
   changeListener($event: { target: any; }): void {
@@ -83,7 +121,7 @@ export class UpdateSubsection2Component {
 
     myReader.onloadend = (e) => {
       this.image = myReader.result;
-
+      this.global.compressImage(this.image);
     }
     myReader.readAsDataURL(file);
   }

@@ -1,6 +1,6 @@
 
-appId: com.example.app
-productName: Lot App
+appId: com.art.app
+productName: Art Design Development
 directories:
   buildResources: build
   output: dist

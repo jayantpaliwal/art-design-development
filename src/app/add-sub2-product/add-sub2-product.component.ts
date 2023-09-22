@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Add2ProductComponent } from '../add-sub1-product/add-sub1-product.component';
 import { DatabaseService } from '../services/database.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-add-sub2-product',
@@ -17,7 +18,7 @@ export class AddSub2ProductComponent {
   isChecked:boolean = false;
   
   constructor(public dialogRef: MatDialogRef<Add2ProductComponent>, private sql: DatabaseService,
-    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private global: GlobalService) {
     dialogRef.disableClose = true;
 
     this.productForm = fb.group({
@@ -43,10 +44,11 @@ export class AddSub2ProductComponent {
     if(this.productForm.invalid){
       return;
     }
+    
     this.submitted = true;
-    {
+    this.global.compressImage(this.image).then((compressedImageData:any) => {
       var product = {
-        image: this.image,
+        image: compressedImageData,
         name: this.productForm.value.productName,
         code: this.productForm.value.productCode,
         height: this.productForm.value.productHeight,
@@ -56,8 +58,8 @@ export class AddSub2ProductComponent {
         quantity: this.productForm.value.productQuantity,
         description: this.productForm.value.productDescription
       }
-    }
     this.dialogRef.close({ 'product': product });
+    })
   }
 
 
@@ -71,7 +73,7 @@ export class AddSub2ProductComponent {
 
     myReader.onloadend = (e) => {
       this.image = myReader.result;
-
+      this.global.compressImage(this.image);
     }
     myReader.readAsDataURL(file);
   }

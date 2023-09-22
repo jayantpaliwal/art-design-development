@@ -14,6 +14,7 @@ function initWindow() {
     appWindow = new BrowserWindow({
         // width: 1000,
         // height: 800,
+        icon: path.join(__dirname,'dist/assets/Icons/icon.icns'),
         webPreferences: {
             nodeIntegration: true,
             nativeWindowOpen: true, //**** add this**
@@ -29,11 +30,12 @@ function initWindow() {
             // pathname: path.join(__dirname, `/dist/index.html`),
             pathname: path.join(__dirname, '/dist/index.html'),
             protocol: "file:",
-            slashes: true
+            slashes: true,
+            
         })
     );
-    console.log(__dirname);
-    // Initialize the DevTools.
+    // console.log(__dirname);
+    // // Initialize the DevTools.
     // appWindow.webContents.openDevTools()
     // appWindow.on('closed', function () {
     //     appWindow = null

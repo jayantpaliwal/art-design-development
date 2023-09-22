@@ -1,5 +1,5 @@
 {
-  "name": "art-design-development",
+  "name": "Art Design Development",
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {
@@ -13,6 +13,31 @@
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "dist/assets/Icons/icon.icns"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "Art Design Development/"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {}
+        }
+      ]
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^15.2.0",
@@ -24,7 +49,6 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
-    "@angular/service-worker": "^15.2.9",
     "@fortawesome/angular-fontawesome": "^0.12.1",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -32,8 +56,8 @@
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "bootstrap": "^5.2.3",
-    "electron-squirrel-startup": "^1.0.0",
-    "import": "^0.0.6",
+    "electron-prebuilt-compile": "^8.2.0",
+    "image-compressor": "^2.0.3",
     "jquery": "^3.6.4",
     "material-icons": "^1.13.5",
     "ng2-search-filter": "^0.5.1",
@@ -50,14 +74,13 @@
     "@angular/cli": "~15.2.6",
     "@angular/compiler-cli": "^15.2.0",
     "@electron-forge/cli": "^6.2.1",
-    "@electron-forge/maker-deb": "^6.2.1",
-    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-dmg": "^6.2.1",
     "@electron-forge/maker-squirrel": "^6.2.1",
     "@electron-forge/maker-zip": "^6.2.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@types/jasmine": "~4.3.0",
     "@types/jquery": "^3.5.16",
-    "electron": "24.3.1",
+    "electron": "^25.3.0",
+    "electron-builder": "^24.4.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -66,7 +89,5 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.9.4"
   },
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.",
-  "author": "",
-  "license": "ISC"
+  "appId": "com.art.app"
 }

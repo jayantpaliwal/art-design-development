@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import { AbstractControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { DatabaseService } from '../services/database.service';
+import { GlobalService } from '../services/global.service';
 @Component({
   selector: 'app-add-sub1-product',
   templateUrl: './add-sub1-product.component.html',
@@ -19,7 +20,7 @@ export class Add2ProductComponent {
   isChecked:boolean = false;
   
   constructor(public dialogRef: MatDialogRef<Add2ProductComponent>, private sql: DatabaseService,
-    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private global: GlobalService) {
     dialogRef.disableClose = true;
 
     this.productForm = fb.group({
@@ -46,9 +47,9 @@ export class Add2ProductComponent {
       return;
     }
     this.submitted = true;
-    {
+       this.global.compressImage(this.image).then((compressedImageData:any) => {
       var product = {
-        image: this.image,
+        image: compressedImageData,
         name: this.productForm.value.productName,
         code: this.productForm.value.productCode,
         height: this.productForm.value.productHeight,
@@ -58,9 +59,9 @@ export class Add2ProductComponent {
         quantity: this.productForm.value.productQuantity,
         description: this.productForm.value.productDescription,
         subCategoryValue: this.isChecked
-      }
     }
     this.dialogRef.close({ 'product': product });
+  });
   }
 
   check(event:any){
@@ -84,7 +85,7 @@ export class Add2ProductComponent {
 
     myReader.onloadend = (e) => {
       this.image = myReader.result;
-
+      this.global.compressImage(this.image);
     }
     myReader.readAsDataURL(file);
   }

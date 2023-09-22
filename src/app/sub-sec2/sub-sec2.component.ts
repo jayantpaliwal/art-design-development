@@ -31,10 +31,14 @@ export class SubSec2Component {
   tableSize: number = 7;
   tableSizes: any = [3, 6, 9, 12];
   hoverIndex:number = -1;
+  subCatProductName:any
+
   constructor(public dialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute, private sql: DatabaseService) {
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe((params :any)=> {
       this.productId = params.get('subCategoryId');
       this.productName = params.get('productName');
+      this.subCatProductName = params.get('subCatProductName');
+      
     });
     
   }
@@ -48,6 +52,9 @@ export class SubSec2Component {
 
   backClicked() {
     window.history.back();
+  }
+  homeClicked(){
+    this.router.navigate([''])
   }
 
   insertData(product: any, productId: any) {
@@ -136,15 +143,15 @@ export class SubSec2Component {
   }
 
   printTable() {
-    var table: any = document.getElementById('myTable');
+    var table: any = document.getElementById('tablePrint');
     const clonedTable: any = table.cloneNode(true);
-    const actionCells = clonedTable.getElementsByClassName('no-print');
+    const actionCells = clonedTable.getElementsByClassName('noprint');
     while (actionCells.length > 0) {
       actionCells[0].remove();
     }
     var newWin: any = window.open('', 'Print-Window');
     newWin.document.open();
-    newWin.document.write('<html><head><style>table { border-collapse: collapse; } table, th, td { border: 1px solid black; }</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
+    newWin.document.write('<html><head><style>table { border-collapse: collapse;   width: 100%; } table, th, td { border: 1px solid black;  } img { max-width: 100%; height: 85px; object-fit:contain ; margin-left: auto;  margin-right: auto; width:85px; display: block;}</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
     newWin.document.close();
     setTimeout(function () {
       newWin.close();

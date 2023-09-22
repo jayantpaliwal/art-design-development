@@ -42,7 +42,7 @@ export class SubSectionComponent {
     //   console.log(params);
 
     // });
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe((params :any)=> {
       this.productId = params.get('productId');
       this.productName = params.get('productName');
     });
@@ -71,6 +71,8 @@ export class SubSectionComponent {
   getData() {
     this.sql.getAllSubCategoryProducts1(this.productId).then((res: any) => {
       this.products = res.result;
+      console.log(this.products);
+      
     })
   }
 
@@ -98,7 +100,7 @@ export class SubSectionComponent {
     if (product.subCategoryValue == 'true') {
       // this.router.navigate(['/sub-sec2', product]);
       // debugger
-      this.router.navigate(['/sub-sec2', product.subCategoryId, product.productName], { queryParams: { subset: '2' } });
+      this.router.navigate(['/sub-sec2', product.subCategoryId, this.productName, product.productName ], { queryParams: { subset: '2',  } });
 
     }
     // else {
@@ -122,7 +124,6 @@ export class SubSectionComponent {
     );
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result !== undefined) {
-        debugger
         result = {
           // qr: result.product.qr,
           image: result.product.image,
@@ -138,7 +139,6 @@ export class SubSectionComponent {
         }
         this.sql.updateSubProduct1(result, product);
         this.getData();
-        debugger
       }
     });
   }
@@ -166,15 +166,15 @@ export class SubSectionComponent {
     })
   }
   printTable() {
-    var table: any = document.getElementById('myTable');
+    var table: any = document.getElementById('myPrintTable');
     const clonedTable: any = table.cloneNode(true);
-    const actionCells = clonedTable.getElementsByClassName('no-print');
+    const actionCells = clonedTable.getElementsByClassName('print-no');
     while (actionCells.length > 0) {
       actionCells[0].remove();
     }
     var newWin: any = window.open('', 'Print-Window');
     newWin.document.open();
-    newWin.document.write('<html><head><style>table { border-collapse: collapse; } table, th, td { border: 1px solid black; }</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
+    newWin.document.write('<html><head><style>table { border-collapse: collapse;   width: 100%; } table, th, td { border: 1px solid black;  } img { max-width: 100%; height: 85px; object-fit:contain ; margin-left: auto;  margin-right: auto; width:85px; display: block;}</style></head><body onload="window.print()">' + clonedTable.outerHTML + '</body></html>');
     newWin.document.close();
     setTimeout(function () {
       newWin.close();

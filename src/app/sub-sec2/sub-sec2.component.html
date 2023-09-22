@@ -2,6 +2,9 @@
 <div class="container mt-30">
     <div class="row gx-1 mb-30 d-flex align-items-end">
         <div class="col-4 d-flex">
+            <h4 class="table_title">Home</h4>&nbsp;&nbsp;
+            <button (click)="homeClicked()" class="back_button">&#8592;</button>
+            <h4 class="table_title">{{subCatProductName}}</h4>&nbsp;&nbsp;
             <button (click)="backClicked()" class="back_button">&#8592;</button>
             <h4 class="table_title">{{productName}}</h4>
             <!-- <nav>
@@ -21,7 +24,7 @@
         </div>
     </div>
 
-    <table id="myTable" class="products_Table">
+    <table id="tablePrint" class="products_Table">
         <thead>
             <tr>
                 <th>Image</th>
@@ -31,11 +34,11 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Description</th>
-                <th class="no-print">Action</th>
+                <th width="10%" class="noprint">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of products | filter:searchText | paginate
+            <tr *ngFor="let product of products | customFilter:searchText | paginate
             : {
                 itemsPerPage: tableSize,
                 currentPage: page,
@@ -67,8 +70,8 @@
                 <td *ngIf="!product.productHeight&&!product.productWidth&&!product.productDepth"></td>
                 <td>{{product.productPrice}}</td>
                 <td>{{product.productQuantity}}</td>
-                <td>{{product.productDescription}}</td>
-                <td class="no-print">
+                <td><p class="description">{{product.productDescription}}</p></td>
+                <td class="noprint">
                     <button class="btn edit_icon edit" (click)="edit(product)"> <fa-icon 
                             [icon]="icon1"></fa-icon></button>
                     <button class="btn delete-icon delete" (click)="delete(product.subCategoryId2)"><fa-icon class="" [icon]="icon"></fa-icon></button>

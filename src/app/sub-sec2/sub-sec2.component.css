@@ -138,3 +138,15 @@
       height: 250px;
       object-fit: contain;
       }
+
+      .edit{
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+    .description {
+      overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+    }
